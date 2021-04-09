@@ -44,12 +44,18 @@
                     <navigationItem key="navigationItem" title="リスト" id="YXv-Fr-EZy">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="lj8-35-jzE">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addPressed:" destination="BYZ-38-t0r" id="IKf-yE-5dV"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="uUe-SE-ekH" id="DPj-z3-p9b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="215.94202898550725" y="126.5625"/>
+            <point key="canvasLocation" x="839" y="127"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rpp-Zm-YAR">
