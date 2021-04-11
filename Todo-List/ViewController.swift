@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
         tableView.dataSource = self
     }
     
@@ -46,6 +47,13 @@ class ViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
         cell.textLabel?.text = todoList[indexPath.row]
         return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        todoList.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
 
