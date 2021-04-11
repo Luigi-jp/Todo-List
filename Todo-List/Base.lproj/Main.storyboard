@@ -12,16 +12,17 @@
         <!--リスト-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Todo_List" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uUe-SE-ekH">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="729"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="todoCell" id="brz-ee-Vd4">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="todoCell" id="brz-ee-Vd4">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="brz-ee-Vd4" id="Sva-bb-iWs">
@@ -31,36 +32,42 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHh-i8-iCz">
+                                <rect key="frame" x="20" y="817" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="4ao-8q-gYf"/>
+                                </constraints>
+                                <state key="normal" title=" 新規" image="plus.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="addPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RLb-Pp-FQn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="uUe-SE-ekH" secondAttribute="bottom" id="4wa-UT-oQg"/>
+                            <constraint firstItem="nHh-i8-iCz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="2u8-hP-wuL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nHh-i8-iCz" secondAttribute="trailing" constant="20" id="CzK-xx-ADn"/>
                             <constraint firstItem="uUe-SE-ekH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NZ6-yF-uz3"/>
+                            <constraint firstItem="nHh-i8-iCz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="QcH-0V-O9Z"/>
                             <constraint firstItem="uUe-SE-ekH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Wro-p4-hhH"/>
                             <constraint firstItem="uUe-SE-ekH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eJW-0h-prQ"/>
+                            <constraint firstItem="nHh-i8-iCz" firstAttribute="top" secondItem="uUe-SE-ekH" secondAttribute="bottom" id="pLf-i7-Onp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="リスト" id="YXv-Fr-EZy">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="lj8-35-jzE">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="addPressed:" destination="BYZ-38-t0r" id="IKf-yE-5dV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="リスト" id="YXv-Fr-EZy"/>
                     <connections>
                         <outlet property="tableView" destination="uUe-SE-ekH" id="DPj-z3-p9b"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="839" y="127"/>
+            <point key="canvasLocation" x="-346.37681159420293" y="145.98214285714286"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Item-->
         <scene sceneID="rpp-Zm-YAR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nIW-ty-6JR" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="aXP-tS-k7n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EEF-kV-l26">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -72,15 +79,16 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="vQg-9g-wmc"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="1DW-dd-QIs"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xlO-4o-9cZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-814" y="127"/>
+            <point key="canvasLocation" x="-1326" y="146"/>
         </scene>
     </scenes>
     <resources>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

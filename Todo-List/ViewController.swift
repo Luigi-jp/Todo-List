@@ -18,10 +18,9 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
     }
     
-    @IBAction func addPressed(_ sender: UIBarButtonItem) {
+    @IBAction func addPressed(_ sender: UIButton) {
         let alert = UIAlertController(title: "Todoを追加", message: "追加するタスクを入力してください。", preferredStyle: UIAlertController.Style.alert)
         alert.addTextField { (taskTextField: UITextField) in
             taskTextField.placeholder = "タスクを入力してください。"
