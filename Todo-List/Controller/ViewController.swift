@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -54,17 +54,9 @@ class ViewController: UIViewController, UITableViewDataSource {
             self.todoList.append(task)
         }
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        todoList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
-        cell.textLabel?.text = todoList[indexPath.row].contents
-        return cell
-    }
 }
+
+//MARK: - UITableViewDelegate
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -74,6 +66,20 @@ extension ViewController: UITableViewDelegate {
         }
         todoList.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+}
+
+//MARK: - UITableViewDataSource
+
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        todoList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
+        cell.textLabel?.text = todoList[indexPath.row].contents
+        return cell
     }
 }
 
