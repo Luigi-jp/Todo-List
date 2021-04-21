@@ -59,13 +59,17 @@ class ViewController: UIViewController {
 //MARK: - UITableViewDelegate
 
 extension ViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let deleteTask = realm.objects(Task.self).filter("createTime=\(todoList[indexPath.row].createTime)")
-        try! realm.write {
-            realm.delete(deleteTask)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "削除") { (action, sourceView, completionHandler) in
+            let deleteTask = self.realm.objects(Task.self).filter("createTime=\(self.todoList[indexPath.row].createTime)")
+            try! self.realm.write {
+                self.realm.delete(deleteTask)
+            }
+            self.todoList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            completionHandler(true)
         }
-        todoList.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
