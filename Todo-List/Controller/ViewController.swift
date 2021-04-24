@@ -34,7 +34,6 @@ class ViewController: UIViewController {
         }
         let confirmAction = UIAlertAction(title: "追加", style: UIAlertAction.Style.default) { (action: UIAlertAction) in
             if let contents = self.taskTextField.text {
-                self.todoList = []
                 try! self.realm.write {
                     self.realm.add(Task(value: ["contents": contents, "createTime": Int(Date().timeIntervalSince1970)]))
                 }
@@ -49,6 +48,7 @@ class ViewController: UIViewController {
     }
     
     func loadTask() {
+        todoList = []
         let tasks = self.realm.objects(Task.self)
         for task in tasks {
             self.todoList.append(task)
@@ -70,6 +70,28 @@ extension ViewController: UITableViewDelegate {
             completionHandler(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task = todoList[indexPath.row]
+        let alert = UIAlertController(title: "My Alert", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            self.taskTextField = textField
+            self.taskTextField.text = task.contents
+        }
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            if self.taskTextField.text != "" {
+                let editTask = self.realm.objects(Task.self).filter("createTime=\(task.createTime)")
+                try! self.realm.write {
+                    editTask.setValue(self.taskTextField.text, forKey: "contents")
+                }
+                self.loadTask()
+                self.tableView.reloadData()
+            }
+            
+        }))
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
