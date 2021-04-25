@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     var todoList: [Task] = []
     var taskTextField = UITextField()
     let realm = try! Realm()
-    let time = Date().timeIntervalSince1970
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +32,9 @@ class ViewController: UIViewController {
             self.taskTextField = taskTextField
         }
         let confirmAction = UIAlertAction(title: "追加", style: UIAlertAction.Style.default) { (action: UIAlertAction) in
-            if let contents = self.taskTextField.text {
+            if let title = self.taskTextField.text {
                 try! self.realm.write {
-                    self.realm.add(Task(value: ["contents": contents, "createTime": Int(Date().timeIntervalSince1970)]))
+                    self.realm.add(Task(value: ["title": title]))
                 }
                 self.loadTask()
                 self.tableView.reloadData()
@@ -61,7 +60,7 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "削除") { (action, sourceView, completionHandler) in
-            let deleteTask = self.realm.objects(Task.self).filter("createTime=\(self.todoList[indexPath.row].createTime)")
+            let deleteTask = self.realm.objects(Task.self).filter("id == \(self.todoList[indexPath.row].id)")
             try! self.realm.write {
                 self.realm.delete(deleteTask)
             }
@@ -77,13 +76,12 @@ extension ViewController: UITableViewDelegate {
         let alert = UIAlertController(title: "My Alert", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField) in
             self.taskTextField = textField
-            self.taskTextField.text = task.contents
+            self.taskTextField.text = task.title
         }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             if self.taskTextField.text != "" {
-                let editTask = self.realm.objects(Task.self).filter("createTime=\(task.createTime)")
                 try! self.realm.write {
-                    editTask.setValue(self.taskTextField.text, forKey: "contents")
+                    task.title = self.taskTextField.text!
                 }
                 self.loadTask()
                 self.tableView.reloadData()
@@ -104,7 +102,7 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
-        cell.textLabel?.text = todoList[indexPath.row].contents
+        cell.textLabel?.text = todoList[indexPath.row].title
         return cell
     }
 }
