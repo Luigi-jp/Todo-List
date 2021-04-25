@@ -9,6 +9,12 @@ import Foundation
 import RealmSwift
 
 class Task: Object {
-    @objc dynamic var contents = ""
-    @objc dynamic var createTime = 0
+    @objc dynamic var id : String = NSUUID().uuidString
+    @objc dynamic var title = ""
+    @objc dynamic var createAt = Date()
+    @objc dynamic var updateAt = Date()
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }
