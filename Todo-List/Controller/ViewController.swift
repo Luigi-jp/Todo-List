@@ -26,12 +26,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Todoを追加", message: "追加するタスクを入力してください。", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "タスクを追加", message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addTextField { (taskTextField: UITextField) in
-            taskTextField.placeholder = "タスクを入力してください。"
+            taskTextField.placeholder = "新規タスク"
             self.taskTextField = taskTextField
         }
-        let confirmAction = UIAlertAction(title: "追加", style: UIAlertAction.Style.default) { (action: UIAlertAction) in
+        let confirmAction = UIAlertAction(title: "追加する", style: UIAlertAction.Style.default) { (action: UIAlertAction) in
             if let title = self.taskTextField.text {
                 try! self.realm.write {
                     self.realm.add(Task(value: ["title": title]))
@@ -73,9 +73,10 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let task = todoList[indexPath.row]
-        let alert = UIAlertController(title: "My Alert", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "タスクを編集", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField) in
             self.taskTextField = textField
+            self.taskTextField.placeholder = task.title
             self.taskTextField.text = task.title
         }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
@@ -103,6 +104,7 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
         cell.textLabel?.text = todoList[indexPath.row].title
+        cell.setEditing(true, animated: false)
         return cell
     }
 }
