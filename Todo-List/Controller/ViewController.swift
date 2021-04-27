@@ -60,7 +60,7 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "削除") { (action, sourceView, completionHandler) in
-            let deleteTask = self.realm.objects(Task.self).filter("id == \(self.todoList[indexPath.row].id)")
+            let deleteTask = self.realm.objects(Task.self).filter("id == '\(self.todoList[indexPath.row].id)'")
             try! self.realm.write {
                 self.realm.delete(deleteTask)
             }
